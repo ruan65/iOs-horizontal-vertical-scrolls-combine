@@ -10,12 +10,12 @@ import UIKit
 
 class FeaturedAppsController: UICollectionViewController {
     
-    let cellId = "category_cell"
-
+    private let cellId = "category_cell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView?.backgroundColor = UIColor.darkGray
+        collectionView?.backgroundColor = UIColor.white
         collectionView?.register(CategoryCell.self, forCellWithReuseIdentifier: cellId)
     }
     
@@ -30,19 +30,12 @@ class FeaturedAppsController: UICollectionViewController {
     }
 }
 
-class CategoryCell: UICollectionViewCell {
+// MARK: Flow layout methods
+extension FeaturedAppsController: UICollectionViewDelegateFlowLayout {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupViews() {
-        backgroundColor = UIColor.blue
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: view.frame.width, height: 250)
     }
 }
 

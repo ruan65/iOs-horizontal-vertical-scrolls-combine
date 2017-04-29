@@ -11,6 +11,8 @@
 		001D0F3A1EB004D300CAB3F4 /* FeaturedAppsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D0F391EB004D300CAB3F4 /* FeaturedAppsController.swift */; };
 		001D0F3F1EB004D300CAB3F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 001D0F3E1EB004D300CAB3F4 /* Assets.xcassets */; };
 		001D0F421EB004D300CAB3F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001D0F401EB004D300CAB3F4 /* LaunchScreen.storyboard */; };
+		001D0F4A1EB1499E00CAB3F4 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D0F491EB1499E00CAB3F4 /* CategoryCell.swift */; };
+		001D0F4E1EB4D16F00CAB3F4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D0F4D1EB4D16F00CAB3F4 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		001D0F3E1EB004D300CAB3F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		001D0F411EB004D300CAB3F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		001D0F431EB004D300CAB3F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		001D0F491EB1499E00CAB3F4 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		001D0F4D1EB4D16F00CAB3F4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,9 +58,11 @@
 			children = (
 				001D0F371EB004D300CAB3F4 /* AppDelegate.swift */,
 				001D0F391EB004D300CAB3F4 /* FeaturedAppsController.swift */,
+				001D0F491EB1499E00CAB3F4 /* CategoryCell.swift */,
 				001D0F3E1EB004D300CAB3F4 /* Assets.xcassets */,
 				001D0F401EB004D300CAB3F4 /* LaunchScreen.storyboard */,
 				001D0F431EB004D300CAB3F4 /* Info.plist */,
+				001D0F4D1EB4D16F00CAB3F4 /* Constants.swift */,
 			);
 			path = LikeAppStrore;
 			sourceTree = "<group>";
@@ -135,6 +141,8 @@
 			files = (
 				001D0F3A1EB004D300CAB3F4 /* FeaturedAppsController.swift in Sources */,
 				001D0F381EB004D300CAB3F4 /* AppDelegate.swift in Sources */,
+				001D0F4A1EB1499E00CAB3F4 /* CategoryCell.swift in Sources */,
+				001D0F4E1EB4D16F00CAB3F4 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
