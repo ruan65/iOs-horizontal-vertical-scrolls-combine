@@ -42,13 +42,16 @@ class AppCategory: NSObject {
         bestNewAppsCategory.name = "Best New Apps"
         
         var apps = [App]()
+        var gamesApps = [App]()
         
         // Logic
         
-        let frozenApp = App()
-        let chessApp = App()
+        
         
         for _ in 0...5 {
+            
+            let frozenApp = App()
+            let chessApp = App()
             
             frozenApp.name = "Disney Built it: Frozen"
             frozenApp.category = "Entertaiment"
@@ -59,20 +62,24 @@ class AppCategory: NSObject {
             chessApp.category = "Games"
             chessApp.imageName = "chess"
             chessApp.price = NSNumber(value: 0)
+            
+            apps.append(frozenApp)
+            
+            gamesApps.append(chessApp)
         }
         
-        apps.append(frozenApp)
+        
         bestNewAppsCategory.apps = apps
         
         let bestNewGamesCategory = AppCategory()
         bestNewGamesCategory.name = "Best New Games"
-        var gamesApps = [App]()
+        
         // Logic
         
-        gamesApps.append(chessApp)
+        
         bestNewGamesCategory.apps = gamesApps
         
-        return [bestNewAppsCategory, bestNewGamesCategory]
+        return [bestNewAppsCategory, bestNewGamesCategory, bestNewAppsCategory]
     }
 }
 

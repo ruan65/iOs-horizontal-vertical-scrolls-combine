@@ -66,6 +66,8 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         appsCollectionView.delegate = self
         appsCollectionView.dataSource = self
         appsCollectionView.register(AppCell.self, forCellWithReuseIdentifier: appCellId)
+        appsCollectionView.register(AppCell.self, forCellWithReuseIdentifier: appCellId)
+
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[v0]-14-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
         
@@ -101,6 +103,50 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
     }
+}
+
+class LargeCategoryCell: CategoryCell {
+    
+    let appLargeCellId = "app_cell_large"
+    
+    override func setupViews() {
+        super.setupViews()
+        appsCollectionView.register(LargeAppCell.self, forCellWithReuseIdentifier: appLargeCellId)
+
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: appLargeCellId, for: indexPath) as! LargeAppCell
+        
+        cell.app = appCategory?.apps?[indexPath.item]
+        return cell
+    }
+    
+    // MARK: Large category cell -> Flow layout methods
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: CellSize.appWide, height: frame.height - 31)
+    }
+    
+    private class LargeAppCell: AppCell {
+        
+        override func setupViews() {
+            
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(imageView)
+            
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
+            
+            
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-2-[v0]-14-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
+        }
+    }
+}
+
+class Header: CategoryCell {
+    
+    
 }
 
 class AppCell: UICollectionViewCell {

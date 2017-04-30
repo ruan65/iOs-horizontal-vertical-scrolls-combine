@@ -13,4 +13,6 @@ let urlFeaturedApps = "http://www.statsallday.com/appstore/featured"
 
 struct CellSize {
     static let app: CGFloat = 128.0
+    static let appWide: CGFloat = app * 2
+
 }
