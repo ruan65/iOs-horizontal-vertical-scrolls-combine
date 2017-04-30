@@ -12,6 +12,14 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     
     let appCellId = "app_cell"
     
+    var appCategory: AppCategory? {
+        didSet {
+            if let name = appCategory?.name {
+                nameLabel.text = name
+            }
+        }
+    }
+    
     let appsCollectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
@@ -24,9 +32,8 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         return collectionView
     }()
     
-    let nameLabel: UILabel = {
+    var nameLabel: UILabel = {
         let l = UILabel()
-        l.text = "Best New Apps"
         l.font = UIFont.systemFont(ofSize: 16)
         l.translatesAutoresizingMaskIntoConstraints = false
         return l
@@ -71,13 +78,17 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        
+        if let count = appCategory?.apps?.count {
+            return count
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: appCellId, for: indexPath) as! AppCell
-        
+        cell.app = appCategory?.apps?[indexPath.item]
         return cell
     }
     
@@ -94,6 +105,30 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
 
 class AppCell: UICollectionViewCell {
     
+    var app: App? {
+        
+        didSet {
+            
+            if let name = app?.name {
+                nameLabel.text = name
+            }
+            
+            if  let cat = app?.category {
+                categoryLabel.text = cat
+            }
+            
+            if let price = app?.price {
+                priceLabel.text = price == 0 ? "Price: Free" : "Price: $\(price)"
+            } else {
+                priceLabel.text = ""
+            }
+            
+            if let imgName = app?.imageName {
+                imageView.image = UIImage(named: imgName)
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -105,7 +140,6 @@ class AppCell: UICollectionViewCell {
     
     let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "frozen")
         iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
@@ -114,7 +148,6 @@ class AppCell: UICollectionViewCell {
     
     let nameLabel: UILabel = {
         let l = UILabel()
-        l.text = "Disney Built it: Frozen"
         l.font = UIFont.systemFont(ofSize: 14)
         l.numberOfLines = 2
         return l
@@ -122,7 +155,6 @@ class AppCell: UICollectionViewCell {
     
     let categoryLabel: UILabel = {
         let l = UILabel()
-        l.text = "Entertaiment"
         l.font = UIFont.systemFont(ofSize: 12)
         l.textColor = UIColor.darkGray
         return l
@@ -130,7 +162,6 @@ class AppCell: UICollectionViewCell {
     
     let priceLabel: UILabel = {
         let l = UILabel()
-        l.text = "3.99"
         l.font = UIFont.systemFont(ofSize: 15)
         l.textColor = UIColor.darkGray
         return l

@@ -16,8 +16,9 @@ class FeaturedAppsController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        appCategories = AppCategory.sampleAppsCategories()
+        AppCategory.fetchFeaturedApps()
         
+        appCategories = AppCategory.sampleAppsCategories()
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(CategoryCell.self, forCellWithReuseIdentifier: cellId)
     }
@@ -32,6 +33,8 @@ class FeaturedAppsController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CategoryCell
+        
+        cell.appCategory = appCategories?[indexPath.item]
         return cell
     }
 }
