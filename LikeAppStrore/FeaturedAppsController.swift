@@ -8,20 +8,26 @@
 
 import UIKit
 
-class FeaturedAppsController: UICollectionViewController {
+class FeaturedAppsController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     private let cellId = "category_cell"
     private let largeCellId = "large_category_cell"
     private let headerId = "header_id"
 
     private var appCategories: [AppCategory]?
+    private var featuredApps: FeaturedApps?
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        AppCategory.fetchFeaturedApps()
+        navigationItem.title = "Featured Apps"
+        featuredApps = AppCategory.sampleAppsCategories()
         
-        appCategories = AppCategory.sampleAppsCategories()
+        appCategories = featuredApps?.appCategories
+        
         collectionView?.backgroundColor = UIColor.white
         
         collectionView?.register(CategoryCell.self, forCellWithReuseIdentifier: cellId)
@@ -41,36 +47,47 @@ class FeaturedAppsController: UICollectionViewController {
         
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! Header
         
+        header.appCategory = featuredApps?.bannerCategory
+        
         return header
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
-        return CGSize(width: view.frame.width, height: 150)
+        return CGSize(width: view.frame.width, height: 120)
     }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if indexPath.item == 2 {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: largeCellId, for: indexPath) as! LargeCategoryCell
-            
-            cell.appCategory = appCategories?[indexPath.item]
-            return cell
+            return setupCategoryCell(cell, index: indexPath.item)
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CategoryCell
         
-        cell.appCategory = appCategories?[indexPath.item]
+        return setupCategoryCell(cell, index: indexPath.item)
+    }
+    
+    func setupCategoryCell(_ cell: CategoryCell, index: Int) -> CategoryCell {
+        cell.appCategory = appCategories?[index]
+        cell.featuredAppController = self
         return cell
     }
-}
-
-// MARK: Flow layout methods
-extension FeaturedAppsController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width: view.frame.width, height: indexPath.item == 0 ? 175 : 250)
+    }
+    
+    func showAppDetails(forApp app: App) {
+        
+        print(app.name!)
+        
+        let appDetailedController = UIViewController()
+        
+        navigationController?.pushViewController(appDetailedController, animated: true)
     }
 }
 

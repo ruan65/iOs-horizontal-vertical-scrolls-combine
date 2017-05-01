@@ -12,6 +12,8 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     
     let appCellId = "app_cell"
     
+    var featuredAppController: FeaturedAppsController?
+    
     var appCategory: AppCategory? {
         didSet {
             if let name = appCategory?.name {
@@ -66,7 +68,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         appsCollectionView.delegate = self
         appsCollectionView.dataSource = self
         appsCollectionView.register(AppCell.self, forCellWithReuseIdentifier: appCellId)
-        appsCollectionView.register(AppCell.self, forCellWithReuseIdentifier: appCellId)
+
 
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[v0]-14-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
@@ -94,6 +96,13 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let app = appCategory?.apps?[indexPath.item] {
+            featuredAppController?.showAppDetails(forApp: app)
+        }
+    }
+    
     // MARK: Flow layout methods
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -107,17 +116,17 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
 
 class LargeCategoryCell: CategoryCell {
     
-    let appLargeCellId = "app_cell_large"
+    let cellId = "app_cell_large"
     
     override func setupViews() {
         super.setupViews()
-        appsCollectionView.register(LargeAppCell.self, forCellWithReuseIdentifier: appLargeCellId)
+        appsCollectionView.register(LargeAppCell.self, forCellWithReuseIdentifier: cellId)
 
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: appLargeCellId, for: indexPath) as! LargeAppCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! LargeAppCell
         
         cell.app = appCategory?.apps?[indexPath.item]
         return cell
@@ -146,7 +155,58 @@ class LargeCategoryCell: CategoryCell {
 
 class Header: CategoryCell {
     
+    let cellId = "header_cell"
     
+    override func setupViews() {
+        
+        appsCollectionView.delegate = self
+        appsCollectionView.dataSource = self
+        
+        appsCollectionView.register(HeaderCell.self, forCellWithReuseIdentifier: cellId)
+        
+        addSubview(appsCollectionView)
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": appsCollectionView]))
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": appsCollectionView]))
+        
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HeaderCell
+        
+        cell.app = appCategory?.apps?[indexPath.item]
+        return cell
+    }
+    
+    // MARK: Large category cell -> Flow layout methods
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: frame.width / 2 + 50, height: frame.height)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    private class HeaderCell: AppCell {
+        
+        override func setupViews() {
+            
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.layer.cornerRadius = 0
+            imageView.layer.borderColor = UIColor(white: 0, alpha: 0.5).cgColor
+            imageView.layer.borderWidth = 3
+            addSubview(imageView)
+            
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
+            
+            
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
+        }
+    }
+
 }
 
 class AppCell: UICollectionViewCell {

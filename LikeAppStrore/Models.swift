@@ -8,6 +8,12 @@
 
 import UIKit
 
+class FeaturedApps: NSObject {
+    
+    var bannerCategory: AppCategory?
+    var appCategories: [AppCategory]?
+}
+
 class AppCategory: NSObject {
     
     var name: String?
@@ -36,7 +42,9 @@ class AppCategory: NSObject {
     }
     
     
-    static func sampleAppsCategories() -> [AppCategory] {
+    static func sampleAppsCategories() -> FeaturedApps {
+        
+        let feturedApps = FeaturedApps()
         
         let bestNewAppsCategory = AppCategory()
         bestNewAppsCategory.name = "Best New Apps"
@@ -79,7 +87,31 @@ class AppCategory: NSObject {
         
         bestNewGamesCategory.apps = gamesApps
         
-        return [bestNewAppsCategory, bestNewGamesCategory, bestNewAppsCategory]
+        let appCategories = [bestNewAppsCategory, bestNewGamesCategory, bestNewAppsCategory]
+        
+        feturedApps.appCategories = appCategories
+        
+        let bannerCategory = AppCategory()
+        
+        let b1 = App()
+        b1.imageName = "clashRoyaleBanner"
+        
+        let b3 = App()
+        b3.imageName = "enhancedWith3dTouch"
+        
+        let b4 = App()
+        b4.imageName = "drSeussBanner"
+        
+        let b2 = App()
+        b2.imageName = "indieGameBanner"
+        
+        let bannerApps = [b1, b2,b3, b4]
+        
+        bannerCategory.apps = bannerApps
+        
+        feturedApps.bannerCategory = bannerCategory
+        
+        return feturedApps
     }
 }
 
