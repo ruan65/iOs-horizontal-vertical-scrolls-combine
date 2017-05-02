@@ -89,6 +89,8 @@ class FeaturedAppsController: UICollectionViewController, UICollectionViewDelega
         
         let appDetailedController = AppDetailedViewController(collectionViewLayout: layout)
         
+        appDetailedController.app = app
+        
         navigationController?.pushViewController(appDetailedController, animated: true)
     }
 }

@@ -8,18 +8,64 @@
 
 import UIKit
 
-class AppDetailedViewController: UICollectionViewController {
+class AppDetailedViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    let detailedHeaderId = "detailed_header_id"
+    
+    var app: App? {
+        didSet {
+            navigationItem.title = app?.name
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = UIColor.brown
+        collectionView?.register(AppDetailsHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: detailedHeaderId)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 120)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: detailedHeaderId, for: indexPath) as! AppDetailsHeader
+        
+        if let imageName = app?.imageName {
+            header.imageView.image = UIImage(named: imageName)
+        }
+        return header
     }
 }
 
 class AppDetailsHeader: BaseCell {
     
+    let imageView: UIImageView = {
+        var iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.translatesAutoresizingMaskIntoConstraints = false
+
+        return iv
+    }()
     
+    override func setupViews() {
+        super.setupViews()
+        
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        
+        addSubview(imageView)
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
+        
+        
+        backgroundColor = UIColor.blue
+    }
 }
 
 class BaseCell: UICollectionViewCell {
@@ -28,6 +74,7 @@ class BaseCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
     }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("Init(coder:) has not been implemented")
     }
