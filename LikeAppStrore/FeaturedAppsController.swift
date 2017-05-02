@@ -70,7 +70,7 @@ class FeaturedAppsController: UICollectionViewController, UICollectionViewDelega
         return setupCategoryCell(cell, index: indexPath.item)
     }
     
-    func setupCategoryCell(_ cell: CategoryCell, index: Int) -> CategoryCell {
+    private func setupCategoryCell(_ cell: CategoryCell, index: Int) -> CategoryCell {
         cell.appCategory = appCategories?[index]
         cell.featuredAppController = self
         return cell
@@ -85,7 +85,9 @@ class FeaturedAppsController: UICollectionViewController, UICollectionViewDelega
         
         print(app.name!)
         
-        let appDetailedController = UIViewController()
+        let layout = UICollectionViewFlowLayout()
+        
+        let appDetailedController = AppDetailedViewController(collectionViewLayout: layout)
         
         navigationController?.pushViewController(appDetailedController, animated: true)
     }
