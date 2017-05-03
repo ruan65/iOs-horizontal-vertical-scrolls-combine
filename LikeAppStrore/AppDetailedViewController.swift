@@ -22,12 +22,12 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
         super.viewDidLoad()
         
         collectionView?.alwaysBounceVertical = true
-        collectionView?.backgroundColor = UIColor.brown
+        collectionView?.backgroundColor = UIColor.white
         collectionView?.register(AppDetailsHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: detailedHeaderId)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 120)
+        return CGSize(width: view.frame.width, height: 128)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -45,6 +45,8 @@ class AppDetailsHeader: BaseCell {
     
     let imageView: UIImageView = {
         var iv = UIImageView()
+        iv.layer.cornerRadius = 16
+        iv.layer.masksToBounds = true
         iv.contentMode = .scaleAspectFill
         iv.translatesAutoresizingMaskIntoConstraints = false
 
@@ -59,12 +61,12 @@ class AppDetailsHeader: BaseCell {
         
         addSubview(imageView)
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[v0(100)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-14-[v0(100)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
         
         
-        backgroundColor = UIColor.blue
+        backgroundColor = UIColor.white
     }
 }
 
