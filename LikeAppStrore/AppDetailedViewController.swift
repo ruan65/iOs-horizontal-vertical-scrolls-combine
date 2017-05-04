@@ -22,7 +22,7 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
         super.viewDidLoad()
         
         collectionView?.alwaysBounceVertical = true
-        collectionView?.backgroundColor = UIColor.white
+        collectionView?.backgroundColor = UIColor.lightGray
         collectionView?.register(AppDetailsHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: detailedHeaderId)
     }
     
@@ -37,6 +37,10 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
         if let imageName = app?.imageName {
             header.imageView.image = UIImage(named: imageName)
         }
+        
+        if let name = app?.name {
+            header.nameLabel.text = name
+        }
         return header
     }
 }
@@ -48,25 +52,55 @@ class AppDetailsHeader: BaseCell {
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
         iv.contentMode = .scaleAspectFill
-        iv.translatesAutoresizingMaskIntoConstraints = false
 
         return iv
     }()
     
+    let segmentedControl: UISegmentedControl = {
+        let sc = UISegmentedControl(items: ["Details", "Reviews", "Related"])
+        sc.tintColor = UIColor.darkGray
+        sc.selectedSegmentIndex = 0
+        return sc
+    }()
+    
+    let nameLabel: UILabel = {
+        
+        let nl = UILabel()
+        nl.font = UIFont.systemFont(ofSize: 16)
+        return nl
+    }()
+    
     override func setupViews() {
         super.setupViews()
+
+        addSubview(imageView)
+        addSubview(segmentedControl)
+        addSubview(nameLabel)
         
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
+        addConstraintsWithFormat(format: "H:|-14-[v0(100)]-14-[v1]", views: imageView, segmentedControl)
+        addConstraintsWithFormat(format: "V:|-14-[v0(100)]-(-35)-[v1]", views: imageView, segmentedControl)
+        
+        addConstraintsWithFormat(format: "H:|-128-[v0]", views: nameLabel)
+        addConstraintsWithFormat(format: "V:|-14-[v0]", views: nameLabel)
 
         
-        addSubview(imageView)
-        
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[v0(100)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
-        
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-14-[v0(100)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
-        
-        
         backgroundColor = UIColor.white
+    }
+}
+
+extension UIView {
+
+    func addConstraintsWithFormat(format: String, views: UIView...) {
+        
+        var viewsDict = [String: UIView]()
+        
+        for (index, view) in views.enumerated() {
+            
+            view.translatesAutoresizingMaskIntoConstraints = false
+            viewsDict["v\(index)"] = view
+        }
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDict))
     }
 }
 
