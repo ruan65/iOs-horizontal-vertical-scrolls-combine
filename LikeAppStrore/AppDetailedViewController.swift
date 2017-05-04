@@ -22,7 +22,7 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
         super.viewDidLoad()
         
         collectionView?.alwaysBounceVertical = true
-        collectionView?.backgroundColor = UIColor.lightGray
+        collectionView?.backgroundColor = UIColor.white
         collectionView?.register(AppDetailsHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: detailedHeaderId)
     }
     
@@ -40,6 +40,12 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
         
         if let name = app?.name {
             header.nameLabel.text = name
+        }
+        
+        if let price = app?.price {
+            header.buyBtn.setTitle(price == 0 ? "GET" : "BUY $\(price)", for: .normal)
+        } else {
+            header.buyBtn.setTitle("GET", for: .normal)
         }
         return header
     }
@@ -70,21 +76,36 @@ class AppDetailsHeader: BaseCell {
         return nl
     }()
     
+    let buyBtn: UIButton = UIButton(type: .system)
+    
+    let divider: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
+        return v
+    }()
+    
     override func setupViews() {
         super.setupViews()
+        
+        backgroundColor = UIColor.white
 
         addSubview(imageView)
         addSubview(segmentedControl)
         addSubview(nameLabel)
+        addSubview(buyBtn)
+        addSubview(divider)
         
         addConstraintsWithFormat(format: "H:|-14-[v0(100)]-14-[v1]", views: imageView, segmentedControl)
         addConstraintsWithFormat(format: "V:|-14-[v0(100)]-(-35)-[v1]", views: imageView, segmentedControl)
         
         addConstraintsWithFormat(format: "H:|-128-[v0]", views: nameLabel)
         addConstraintsWithFormat(format: "V:|-14-[v0]", views: nameLabel)
-
         
-        backgroundColor = UIColor.white
+        addConstraintsWithFormat(format: "H:[v0]-14-|", views: buyBtn)
+        addConstraintsWithFormat(format: "V:|-50-[v0(32)]", views: buyBtn)
+        
+        addConstraintsWithFormat(format: "H:|[v0]|", views: divider)
+        addConstraintsWithFormat(format: "V:[v0(2)]|", views: divider)
     }
 }
 
