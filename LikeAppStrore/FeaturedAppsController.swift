@@ -17,14 +17,27 @@ class FeaturedAppsController: UICollectionViewController, UICollectionViewDelega
     private var appCategories: [AppCategory]?
     private var featuredApps: FeaturedApps?
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        AppCategory.fetchFeaturedApps()
         navigationItem.title = "Featured Apps"
-        featuredApps = AppCategory.sampleAppsCategories()
+//        featuredApps = AppCategory.sampleAppsCategories()
+        
+        AppCategory.fetchFeaturedApps { featuredApps in
+        
+            self.featuredApps = featuredApps
+            self.appCategories = featuredApps.appCategories
+            self.collectionView?.reloadData()
+            
+            print(featuredApps.bannerCategory?.apps?.count ?? "is empty")
+            
+            if let banapps = featuredApps.bannerCategory?.apps {
+                for a in banapps {
+                    print(a.imageName)
+                }
+            }
+        }
         
         appCategories = featuredApps?.appCategories
         
@@ -78,12 +91,12 @@ class FeaturedAppsController: UICollectionViewController, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: view.frame.width, height: indexPath.item == 0 ? 175 : 250)
+        return CGSize(width: view.frame.width, height: indexPath.item == 2 ? 175 : 250)
     }
     
     func showAppDetails(forApp app: App) {
         
-        print(app.name!)
+        print(app.name ?? "not provided...")
         
         let layout = UICollectionViewFlowLayout()
         

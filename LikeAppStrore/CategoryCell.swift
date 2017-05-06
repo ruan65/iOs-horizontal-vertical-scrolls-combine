@@ -15,10 +15,12 @@ class CategoryCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelega
     var featuredAppController: FeaturedAppsController?
     
     var appCategory: AppCategory? {
+        
         didSet {
             if let name = appCategory?.name {
                 nameLabel.text = name
             }
+            appsCollectionView.reloadData()
         }
     }
     
@@ -168,6 +170,7 @@ class Header: CategoryCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HeaderCell
         
         cell.app = appCategory?.apps?[indexPath.item]
+        print("cell image name" + (cell.app?.imageName)!)
         return cell
     }
     
@@ -181,19 +184,16 @@ class Header: CategoryCell {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    private class HeaderCell: AppCell {
+    fileprivate class HeaderCell: AppCell {
         
-        override func setupViews() {
+        fileprivate override func setupViews() {
             
-            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.layer.borderColor = UIColor(white: 0.5, alpha: 0.5).cgColor
+            imageView.layer.borderWidth = 0.5
             imageView.layer.cornerRadius = 0
-            imageView.layer.borderColor = UIColor(white: 0, alpha: 0.5).cgColor
-            imageView.layer.borderWidth = 3
+            imageView.translatesAutoresizingMaskIntoConstraints = false
             addSubview(imageView)
-            
             addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
-            
-            
             addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
         }
     }

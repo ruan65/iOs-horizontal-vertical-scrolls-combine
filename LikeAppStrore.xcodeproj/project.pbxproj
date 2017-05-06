@@ -16,6 +16,7 @@
 		001D0F501EB5593400CAB3F4 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D0F4F1EB5593400CAB3F4 /* Models.swift */; };
 		001D0F521EB9212000CAB3F4 /* AppDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D0F511EB9212000CAB3F4 /* AppDetailedViewController.swift */; };
 		001D0F541EBBD36100CAB3F4 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D0F531EBBD36100CAB3F4 /* Base.swift */; };
+		001D0F561EBE031700CAB3F4 /* ScreenshotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D0F551EBE031700CAB3F4 /* ScreenshotsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		001D0F4F1EB5593400CAB3F4 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		001D0F511EB9212000CAB3F4 /* AppDetailedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDetailedViewController.swift; sourceTree = "<group>"; };
 		001D0F531EBBD36100CAB3F4 /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
+		001D0F551EBE031700CAB3F4 /* ScreenshotsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				001D0F4D1EB4D16F00CAB3F4 /* Constants.swift */,
 				001D0F4F1EB5593400CAB3F4 /* Models.swift */,
 				001D0F531EBBD36100CAB3F4 /* Base.swift */,
+				001D0F551EBE031700CAB3F4 /* ScreenshotsCell.swift */,
 			);
 			path = LikeAppStrore;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				001D0F541EBBD36100CAB3F4 /* Base.swift in Sources */,
+				001D0F561EBE031700CAB3F4 /* ScreenshotsCell.swift in Sources */,
 				001D0F3A1EB004D300CAB3F4 /* FeaturedAppsController.swift in Sources */,
 				001D0F381EB004D300CAB3F4 /* AppDelegate.swift in Sources */,
 				001D0F521EB9212000CAB3F4 /* AppDetailedViewController.swift in Sources */,
