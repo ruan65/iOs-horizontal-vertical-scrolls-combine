@@ -68,13 +68,13 @@
 				001D0F391EB004D300CAB3F4 /* FeaturedAppsController.swift */,
 				001D0F491EB1499E00CAB3F4 /* CategoryCell.swift */,
 				001D0F511EB9212000CAB3F4 /* AppDetailedViewController.swift */,
+				001D0F551EBE031700CAB3F4 /* ScreenshotsCell.swift */,
 				001D0F3E1EB004D300CAB3F4 /* Assets.xcassets */,
 				001D0F401EB004D300CAB3F4 /* LaunchScreen.storyboard */,
 				001D0F431EB004D300CAB3F4 /* Info.plist */,
 				001D0F4D1EB4D16F00CAB3F4 /* Constants.swift */,
 				001D0F4F1EB5593400CAB3F4 /* Models.swift */,
 				001D0F531EBBD36100CAB3F4 /* Base.swift */,
-				001D0F551EBE031700CAB3F4 /* ScreenshotsCell.swift */,
 			);
 			path = LikeAppStrore;
 			sourceTree = "<group>";

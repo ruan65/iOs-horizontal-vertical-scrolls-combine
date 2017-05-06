@@ -57,28 +57,6 @@ class AppCategory: NSObject {
         }
     }
     
-//    static func fetchFeaturedApps() {
-//        
-//        print("Fetching featured apps")
-//        
-//        URLSession.shared.dataTask(with: URL(string: urlFeaturedApps)!) { (data, response, err) in
-//            
-//            
-//            guard err == nil else {
-//                print(err!)
-//                return
-//            }
-//            
-//            do {
-//                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-//                print("\(json)")
-//            } catch let er {
-//                print(er)
-//                return
-//            }
-//            }.resume()
-//    }
-    
     static func fetchFeaturedApps(_ completionHandler: @escaping (FeaturedApps) -> ()) {
         
         let urlString = "http://www.statsallday.com/appstore/featured"

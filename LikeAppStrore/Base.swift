@@ -22,6 +22,11 @@ extension UIView {
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDict))
     }
+    
+    func addConstraintsFillEntireView(view: UIView) {
+        addConstraintsWithFormat(format: "H:|[v0]|", views: view)
+        addConstraintsWithFormat(format: "V:|[v0]|", views: view)
+    }
 }
 
 class BaseCell: UICollectionViewCell {

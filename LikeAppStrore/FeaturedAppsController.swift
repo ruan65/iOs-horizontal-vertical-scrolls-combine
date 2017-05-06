@@ -29,14 +29,6 @@ class FeaturedAppsController: UICollectionViewController, UICollectionViewDelega
             self.featuredApps = featuredApps
             self.appCategories = featuredApps.appCategories
             self.collectionView?.reloadData()
-            
-            print(featuredApps.bannerCategory?.apps?.count ?? "is empty")
-            
-            if let banapps = featuredApps.bannerCategory?.apps {
-                for a in banapps {
-                    print(a.imageName)
-                }
-            }
         }
         
         appCategories = featuredApps?.appCategories

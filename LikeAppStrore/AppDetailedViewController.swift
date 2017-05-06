@@ -11,10 +11,20 @@ import UIKit
 class AppDetailedViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let detailedHeaderId = "detailed_header_id"
+    let cellAppDetailedId = "cell_detailed_id"
     
     var app: App? {
         didSet {
             navigationItem.title = app?.name
+            if let appId = app?.id {
+                let url = "http://www.statsallday.com/appstore/appdetail?id=\(appId)"
+                
+                URLSession.shared.dataTask(with: URL(string: url)!) { data, response, error in
+                
+                    print(data)
+                    
+                }.resume()
+            }
         }
     }
     
@@ -23,7 +33,22 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
         
         collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = UIColor.white
+        
         collectionView?.register(AppDetailsHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: detailedHeaderId)
+        
+        collectionView?.register(ScreenshotsCell.self, forCellWithReuseIdentifier: cellAppDetailedId)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return collectionView.dequeueReusableCell(withReuseIdentifier: cellAppDetailedId, for: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 150)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
