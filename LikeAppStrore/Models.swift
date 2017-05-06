@@ -57,7 +57,7 @@ class AppCategory: NSObject {
         }
     }
     
-    static func fetchFeaturedApps(_ completionHandler: @escaping (FeaturedApps) -> ()) {
+    static func fetchFeaturedApps(_ handleFetchedApps: @escaping (FeaturedApps) -> ()) {
         
         let urlString = "http://www.statsallday.com/appstore/featured"
         
@@ -78,7 +78,7 @@ class AppCategory: NSObject {
                 featuredApps.setValuesForKeys(json as! [String: AnyObject])
                 
                 DispatchQueue.main.async(execute: { () -> Void in
-                    completionHandler(featuredApps)
+                    handleFetchedApps(featuredApps)
                 })
                 
             } catch let err {

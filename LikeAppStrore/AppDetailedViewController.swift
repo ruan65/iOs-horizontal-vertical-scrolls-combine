@@ -11,18 +11,48 @@ import UIKit
 class AppDetailedViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let detailedHeaderId = "detailed_header_id"
-    let cellAppDetailedId = "cell_detailed_id"
+    let cellScreenshotId = "cell_screenshot_id"
+    let cellDescrId = "cell_descr_id"
     
     var app: App? {
         didSet {
+            
             navigationItem.title = app?.name
+            
+            if app?.screenshots != nil {
+                return
+            }
+            
             if let appId = app?.id {
                 let url = "http://www.statsallday.com/appstore/appdetail?id=\(appId)"
                 
                 URLSession.shared.dataTask(with: URL(string: url)!) { data, response, error in
-                
-                    print(data)
                     
+                    if error != nil {
+                        print(error!)
+                        return
+                    }
+                    
+                    do {
+                        
+                        let json = try(JSONSerialization.jsonObject(with: data!, options: .mutableContainers))
+                        
+                        print(json)
+                        
+                        let appDetailed = App()
+                        
+                        appDetailed.setValuesForKeys(json as! [String: AnyObject])
+                        
+                        self.app = appDetailed
+                        
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            self.collectionView?.reloadData()
+                        })
+                        
+                    } catch let err {
+                        print(err)
+                    }
+
                 }.resume()
             }
         }
@@ -36,19 +66,41 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
         
         collectionView?.register(AppDetailsHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: detailedHeaderId)
         
-        collectionView?.register(ScreenshotsCell.self, forCellWithReuseIdentifier: cellAppDetailedId)
+        collectionView?.register(ScreenshotsCell.self, forCellWithReuseIdentifier: cellScreenshotId)
+        
+        collectionView?.register(AppDetaledDescriptionCell.self, forCellWithReuseIdentifier: cellDescrId)
+
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: cellAppDetailedId, for: indexPath)
+        
+        if indexPath.item == 0 {
+            let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellScreenshotId, for: indexPath) as! ScreenshotsCell
+            
+            cell.app = app
+            
+            return cell
+            
+        } else if indexPath.item == 1 {
+            let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellDescrId, for: indexPath) as! AppDetaledDescriptionCell
+            
+            if let descr = app?.desc {
+                cell.descr = descr
+            }
+            return cell
+            
+        } else {
+            
+            return BaseCell()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 150)
+        return CGSize(width: view.frame.width, height: 175)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -76,6 +128,33 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
     }
 }
 
+class AppDetaledDescriptionCell: BaseCell {
+    
+    var descr: String? {
+        didSet {
+//            descrLabel.text = descr
+        }
+    }
+    
+    let textView: UITextView = {
+        let tv = UITextView()
+        
+        return tv
+    }()
+    
+    override func setupViews() {
+        super.setupViews()
+        
+        textView.text = "SAMPLE TEXT"
+        addSubview(textView)
+
+        addConstraintsWithFormat(format: "H:|-8-[v0]-8-|", views: textView)
+        addConstraintsWithFormat(format: "V:|-4-[v0]-4-|", views: textView)
+        
+//        addConstraintsFillEntireView(view: textView)
+    }
+}
+
 class AppDetailsHeader: BaseCell {
     
     let imageView: UIImageView = {
@@ -83,7 +162,7 @@ class AppDetailsHeader: BaseCell {
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
         iv.contentMode = .scaleAspectFill
-
+        
         return iv
     }()
     
@@ -113,7 +192,7 @@ class AppDetailsHeader: BaseCell {
         super.setupViews()
         
         backgroundColor = UIColor.white
-
+        
         addSubview(imageView)
         addSubview(segmentedControl)
         addSubview(nameLabel)
