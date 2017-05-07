@@ -17,6 +17,9 @@
 		001D0F521EB9212000CAB3F4 /* AppDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D0F511EB9212000CAB3F4 /* AppDetailedViewController.swift */; };
 		001D0F541EBBD36100CAB3F4 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D0F531EBBD36100CAB3F4 /* Base.swift */; };
 		001D0F561EBE031700CAB3F4 /* ScreenshotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D0F551EBE031700CAB3F4 /* ScreenshotsCell.swift */; };
+		001D0F5A1EBF5C7200CAB3F4 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D0F591EBF5C7200CAB3F4 /* CustomTabBarController.swift */; };
+		001D0F5C1EBF697200CAB3F4 /* FAIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001D0F5B1EBF697200CAB3F4 /* FAIcon.swift */; };
+		001D0F5E1EBF69FE00CAB3F4 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 001D0F5D1EBF69FE00CAB3F4 /* FontAwesome.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		001D0F511EB9212000CAB3F4 /* AppDetailedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDetailedViewController.swift; sourceTree = "<group>"; };
 		001D0F531EBBD36100CAB3F4 /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
 		001D0F551EBE031700CAB3F4 /* ScreenshotsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotsCell.swift; sourceTree = "<group>"; };
+		001D0F591EBF5C7200CAB3F4 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		001D0F5B1EBF697200CAB3F4 /* FAIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAIcon.swift; sourceTree = "<group>"; };
+		001D0F5D1EBF69FE00CAB3F4 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = ../../FontAwesome.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,11 +76,14 @@
 				001D0F511EB9212000CAB3F4 /* AppDetailedViewController.swift */,
 				001D0F551EBE031700CAB3F4 /* ScreenshotsCell.swift */,
 				001D0F3E1EB004D300CAB3F4 /* Assets.xcassets */,
+				001D0F5D1EBF69FE00CAB3F4 /* FontAwesome.ttf */,
 				001D0F401EB004D300CAB3F4 /* LaunchScreen.storyboard */,
 				001D0F431EB004D300CAB3F4 /* Info.plist */,
 				001D0F4D1EB4D16F00CAB3F4 /* Constants.swift */,
 				001D0F4F1EB5593400CAB3F4 /* Models.swift */,
 				001D0F531EBBD36100CAB3F4 /* Base.swift */,
+				001D0F591EBF5C7200CAB3F4 /* CustomTabBarController.swift */,
+				001D0F5B1EBF697200CAB3F4 /* FAIcon.swift */,
 			);
 			path = LikeAppStrore;
 			sourceTree = "<group>";
@@ -141,6 +150,7 @@
 			files = (
 				001D0F421EB004D300CAB3F4 /* LaunchScreen.storyboard in Resources */,
 				001D0F3F1EB004D300CAB3F4 /* Assets.xcassets in Resources */,
+				001D0F5E1EBF69FE00CAB3F4 /* FontAwesome.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +169,8 @@
 				001D0F4A1EB1499E00CAB3F4 /* CategoryCell.swift in Sources */,
 				001D0F4E1EB4D16F00CAB3F4 /* Constants.swift in Sources */,
 				001D0F501EB5593400CAB3F4 /* Models.swift in Sources */,
+				001D0F5A1EBF5C7200CAB3F4 /* CustomTabBarController.swift in Sources */,
+				001D0F5C1EBF697200CAB3F4 /* FAIcon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

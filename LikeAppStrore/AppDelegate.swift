@@ -18,10 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let layout = UICollectionViewFlowLayout()
-        let feturedAppsController = FeaturedAppsController(collectionViewLayout: layout)
+//        let layout = UICollectionViewFlowLayout()
+//        let feturedAppsController = FeaturedAppsController(collectionViewLayout: layout)
         
-        window?.rootViewController = UINavigationController(rootViewController: feturedAppsController)
+//        window?.rootViewController = UINavigationController(rootViewController: feturedAppsController)
+        
+        window?.rootViewController = CustomTabBarController()
         
         return true
     }
