@@ -170,6 +170,9 @@ class AppDetaledDescriptionCell: BaseCell {
         addConstraintsWithFormat(format: "V:|-(-8)-[v0]-4-[v1(1)]|", views: textView, divider)
         
         //        addConstraintsFillEntireView(view: textView)
+        
+        // hello
+        
     }
 }
 
