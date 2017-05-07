@@ -47,7 +47,7 @@ class ScreenshotsCell: BaseCell, UICollectionViewDelegate, UICollectionViewDataS
         
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         
-        addConstraintsWithFormat(format: "H:|[v0]|", views: dividerLineView)
+        addConstraintsWithFormat(format: "H:|-10-[v0]|", views: dividerLineView)
         addConstraintsWithFormat(format: "V:|-5-[v0]-10-[v1(1)]-5-|", views: collectionView, dividerLineView)
         
         

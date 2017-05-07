@@ -52,8 +52,8 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
                     } catch let err {
                         print(err)
                     }
-
-                }.resume()
+                    
+                    }.resume()
             }
         }
     }
@@ -69,7 +69,7 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
         collectionView?.register(ScreenshotsCell.self, forCellWithReuseIdentifier: cellScreenshotId)
         
         collectionView?.register(AppDetaledDescriptionCell.self, forCellWithReuseIdentifier: cellDescrId)
-
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -81,21 +81,24 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
             
             return cell
             
-        } else if indexPath.item == 1 {
-            let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellDescrId, for: indexPath) as! AppDetaledDescriptionCell
-            
-            if let descr = app?.desc {
-                cell.descr = descr
-            }
-            return cell
-            
-        } else {
-            
-            return BaseCell()
         }
+        
+        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellDescrId, for: indexPath) as! AppDetaledDescriptionCell
+        
+        cell.textView.attributedText = getDescriptionAttributedText()
+        
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if indexPath.item == 1 {
+            
+            let dummySize = CGSize(width: view.frame.width - 10 - 10, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin)
+            let rect = getDescriptionAttributedText().boundingRect(with: dummySize, options: options, context: nil)
+            return CGSize(width: view.frame.width, height: rect.height + 18)
+        }
         return CGSize(width: view.frame.width, height: 175)
     }
     
@@ -104,6 +107,7 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
         return CGSize(width: view.frame.width, height: 128)
     }
     
@@ -126,32 +130,46 @@ class AppDetailedViewController: UICollectionViewController, UICollectionViewDel
         }
         return header
     }
+    
+    func getDescriptionAttributedText() -> NSAttributedString {
+        
+        let attributedString = NSMutableAttributedString(string: "Description\n", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16)])
+        
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 10
+        let range = NSMakeRange(0, attributedString.string.characters.count)
+        attributedString.addAttribute(NSParagraphStyleAttributeName, value: style, range: range)
+        
+        if let desc = app?.desc {
+            
+            attributedString.append(NSAttributedString(string: desc, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor.darkGray]))
+        }
+        return attributedString
+    }
 }
 
 class AppDetaledDescriptionCell: BaseCell {
     
-    var descr: String? {
-        didSet {
-//            descrLabel.text = descr
-        }
-    }
+    let textView: UITextView = UITextView()
     
-    let textView: UITextView = {
-        let tv = UITextView()
-        
-        return tv
+    let divider: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
+        return v
     }()
     
     override func setupViews() {
         super.setupViews()
         
-        textView.text = "SAMPLE TEXT"
         addSubview(textView)
-
-        addConstraintsWithFormat(format: "H:|-8-[v0]-8-|", views: textView)
-        addConstraintsWithFormat(format: "V:|-4-[v0]-4-|", views: textView)
+        addSubview(divider)
         
-//        addConstraintsFillEntireView(view: textView)
+        addConstraintsWithFormat(format: "H:|-10-[v0]-10-|", views: textView)
+        addConstraintsWithFormat(format: "H:|-10-[v0]|", views: divider)
+
+        addConstraintsWithFormat(format: "V:|-(-8)-[v0]-4-[v1(1)]|", views: textView, divider)
+        
+        //        addConstraintsFillEntireView(view: textView)
     }
 }
 
@@ -209,7 +227,7 @@ class AppDetailsHeader: BaseCell {
         addConstraintsWithFormat(format: "V:|-50-[v0(32)]", views: buyBtn)
         
         addConstraintsWithFormat(format: "H:|[v0]|", views: divider)
-        addConstraintsWithFormat(format: "V:[v0(2)]|", views: divider)
+        addConstraintsWithFormat(format: "V:[v0(1)]|", views: divider)
     }
 }
 
